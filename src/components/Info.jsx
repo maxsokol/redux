@@ -291,6 +291,7 @@ d.  Категория (выбирается из списка)<br />
     <br /><a href="https://material-ui.com/styles/api/">material-ui.com</a>. 
     <br /><a href="https://www.youtube.com/watch?v=rEHvPiLWSbQ&list=PLVsgh6h4zk-L-OzWglEh-dBb3PrGcL96y&index=5">YouTube</a>
     <br /><a href="https://stackoverflow.com/questions/57220059/internal-implementation-of-makestyles-in-react-material-ui">stackoverflow.com</a></li>
+  <li>Good <a href="https://material-ui-pickers.dev/getting-started/usage">Matherial UI data picker</a></li>
 </ol>
 
 </div>

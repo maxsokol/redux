@@ -12,6 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import DateFnsUtils from '@date-io/date-fns'; 
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 const useStyles = makeStyles({
   title: {
@@ -63,8 +65,9 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
 
   let nameBefore = categories[categoryNumber].feeds[arrFeedIndex].title;
   let priceBefore = categories[categoryNumber].feeds[arrFeedIndex].price;
-  let textBefore = categories[categoryNumber].feeds[arrFeedIndex].text;
-  let feedShelflife = categories[categoryNumber].feeds[arrFeedIndex].shelflife;  
+  let textBefore = categories[categoryNumber].feeds[arrFeedIndex].text;  
+  let dateOfFeed = categories[categoryNumber].feeds[arrFeedIndex].shelflife;  
+  let [feedShelflife, setFeedShelflife] = React.useState(dateOfFeed);
 
   let [feedName, setFeedName] = React.useState(nameBefore);
   let [feedPrice, setFeedPrice] = React.useState(priceBefore);
@@ -79,9 +82,20 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
   const handleChangeFeedDesc = (e) => {
     setFeedDesc(e.target.value);
   };
-  const handleChangeFeedShelflife = (e) => {
+  /* const handleFeedShelflifeChange = (e) => {
     return feedShelflife = e.target.value;
-  };  
+  };  */
+
+
+  const handleFeedShelflifeChange = (date) => {
+    let day = date.getDate();
+    let month = date.getMonth() + 1; 
+    let year = date.getFullYear();   
+    date = year + '-' + ((month < 10) ? "0" + month : month) 
+    + '-' + ((day < 10) ? "0" + day : day); 
+    return setFeedShelflife(date); 
+  };
+
   const handleClose = () => {
     onClose(false);
   };
@@ -161,13 +175,15 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
             onChange={handleChangeFeedDesc}
           />
 
-          <TextField classes={inputClasses}
-            id="date"
-            label="Срок годности"
-            type="date"
-            defaultValue={feedShelflife}
-            onChange={handleChangeFeedShelflife}
-          />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker 
+              classes={inputClasses}
+              label="Срок годности"
+              value={feedShelflife} 
+              format="MM/dd/yyyy"
+              onChange={handleFeedShelflifeChange}
+            />
+          </MuiPickersUtilsProvider>
 
           <FormControl classes={inputClasses}>
             <InputLabel htmlFor="uncontrolled-native">Категория корма</InputLabel>

@@ -12,6 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import DateFnsUtils from '@date-io/date-fns'; 
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 const useStyles = makeStyles({
   title: {
@@ -29,7 +31,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
   const [feedName, setFeedName] = React.useState('Noname');
   const [feedPrice, setFeedPrice] = React.useState('none');
   const [feedDesc, setFeedDesc] = React.useState('');
-  let [feedShelflife] = React.useState('');
+  let [feedShelflife, setFeedShelflife] = React.useState('notselect');
   
   const handleChangeFeedName = (e) => setFeedName(e.target.value);
   const handleChangeFeedPrice = (e) => setFeedPrice(e.target.value);
@@ -40,20 +42,30 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
   const inputClasses = { root: classes.input };
 
   /* Begin Tomorrow day script */
+
   let today = new Date();
+  let tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
   let getTomorowDate = function(date){
-    let tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+    //tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
     let dayTomorrow = tomorrow.getDate(); 
     let monthTomorrow = tomorrow.getMonth() + 1; //in js month begin from 0
     let yearTomorrow = tomorrow.getFullYear();   
     return yearTomorrow + '-' + ((monthTomorrow < 10) ? "0" + monthTomorrow : monthTomorrow) 
     + '-' + ((dayTomorrow < 10) ? "0" + dayTomorrow : dayTomorrow);  
   };
-  feedShelflife = getTomorowDate(today);  
-  const handleChangeFeedShelflife = (e) => {
-      return feedShelflife = e.target.value;
-  };
+
+  if ( feedShelflife === 'notselect' ) { feedShelflife = getTomorowDate(today); }
+
   /* End Tomorrow day script */  
+
+  const handleFeedShelflifeChange = (date) => {
+    let day = date.getDate();
+    let month = date.getMonth() + 1; 
+    let year = date.getFullYear();   
+    date = year + '-' + ((month < 10) ? "0" + month : month) 
+    + '-' + ((day < 10) ? "0" + day : day); 
+    return setFeedShelflife(date); 
+  };
 
   let categoryNumber = 0; //First category in initial
 
@@ -141,14 +153,17 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             required
             onChange={handleChangeFeedDesc}
           />
-   
-          <TextField classes={inputClasses}
-            id="date"
-            label="Срок годности"
-            type="date"
-            defaultValue={feedShelflife}
-            onChange={handleChangeFeedShelflife}
-          />
+
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker 
+              classes={inputClasses}
+              label="Срок годности"
+              minDate={tomorrow} 
+              format="MM/dd/yyyy"
+              value={feedShelflife} 
+              onChange={handleFeedShelflifeChange}     
+            />
+          </MuiPickersUtilsProvider>
 
           <FormControl classes={inputClasses}>
             <InputLabel htmlFor="uncontrolled-native">Категория корма</InputLabel>
@@ -164,7 +179,6 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             </NativeSelect>
             <FormHelperText>Выберите пожалуйста</FormHelperText>
           </FormControl>
-
 
           <DialogActions>
             <Button onClick={handleClose} color="primary">
