@@ -127,7 +127,7 @@ const categoriesReducer = (state = initialState, action) => {
             let categoryNumberUpd = action.payload.categoryNumber;
             let feedNumberUpd = action.payload.feedNumber; 
             let updFeed = stateCopy.allCategories[categoryNumberUpdBefore].feeds[feedNumberUpd];
-            if ( categoryNumberUpdBefore == categoryNumberUpd ) {                               
+            if ( categoryNumberUpdBefore === categoryNumberUpd ) {                               
                 updFeed.title = action.payload.name;
                 updFeed.price = action.payload.price;
                 updFeed.text = action.payload.desc;                          

@@ -14,6 +14,10 @@ const useStyles = makeStyles( theme => ({
   container: {
     paddingRight: '20px',    
   },
+  menuitem: {
+    background: '#f7f3f2', border: '1px solid #e2e0df', marginBottom: '-1px',
+    [theme.breakpoints.down('sm')]: { minHeight: '28px', height: '28px' },
+  },
   ahref: { 
     textDecoration: 'none', fontWeight: 'bold' 
   },

@@ -46,20 +46,20 @@ const App = (props) => {
 
   return (
     <>
-      <Grid xs={12} md={12} container direction="row"  className={classes.container}>
+      <Grid container={true} direction="row"  className={classes.container}>
 
-        <Grid item xs={5} md={5}>
+        <Grid item={true} xs={5} md={5}>
           <a href="/#/"><img src={cat} alt="cat" className={classes.mainimage} /></a>
         </Grid>  
 
-        <Grid item xs={7} md={7}>
+        <Grid item={true} xs={7} md={7}>
 
           <Typography variant="h2" className={classes.sitetitle}>
             Feed the cat
           </Typography>
 
           <Typography variant="h4" className={classes.sitesubtitle}>Накормите кота</Typography>
-          <Typography variant="p" className={classes.question}>Вы достойны кормить кота?</Typography>
+          <Typography variant="body1" className={classes.question}>Вы достойны кормить кота?</Typography>
           <Switch            
             onChange={handleClickWorthy}
             value="false"
@@ -70,9 +70,9 @@ const App = (props) => {
       </Grid>
 
       { (props.isWorthy) ? (
-        <Grid xs={12} md={12} container direction="row"  className={classes.container} alignItems="baseline">                   
+        <Grid container direction="row"  className={classes.container} alignItems="baseline"  key={0}>                   
           <CategoriesList />
-          <FeedList />                  
+          <FeedList key={0}/>                  
         </Grid>
        ) : (
         <Grid xs={12} md={12} container direction="row">

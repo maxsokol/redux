@@ -7,7 +7,7 @@ import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import Container from '@material-ui/core/Container';
 
-let rerenderEntireTree = (state) => {    
+let rerenderEntireTree = () => {    
     ReactDOM.render(
         <HashRouter hashType="slash">
           <Provider store={store}>

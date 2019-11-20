@@ -33,7 +33,7 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
 
   let currentCategoryNumber = function(currentCategoryName) {
     for (let i = 0; i < categories.length; i++) {
-      if (categories[i].category == currentCategoryName) {
+      if (categories[i].category === currentCategoryName) {
         return categoryNumber = i;     
       }
     }
@@ -51,9 +51,10 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
   let arrFeedIndex;
   const arrFeedIndexCalc = (cat, item) => {   
     categories[cat].feeds.map(function (el, index) {
-      if(el.title == item) {  
+      if(el.title === item) {  
         return arrFeedIndex = index;        
       }
+      return false;
     }); 
   }
   // End For Array index calculate for Feed
@@ -98,7 +99,7 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
       checkFeedName = `Здесь ${feedName.length} cимволов. Это норм.`
       checkFeedNameFlag = false;
     }
-    if ( feedName == 'Noname' ) {
+    if ( feedName === 'Noname' ) {
       checkFeedName = 'от 5 до 40 символов'
     }
     return checkFeedName; 
@@ -136,8 +137,8 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
           />
 
           <TextField
-            error={( feedPrice > 0 || feedPrice == 'none' ) ? false : true}
-            helperText={( feedPrice > 0 || feedPrice == 'none' ) ? 'Больше нуля, естественно' : 'Цена должна быть больше нуля' }
+            error={( feedPrice > 0 || feedPrice === 'none' ) ? false : true}
+            helperText={( feedPrice > 0 || feedPrice === 'none' ) ? 'Больше нуля, естественно' : 'Цена должна быть больше нуля' }
             autoFocus
             label="Цена, руб"
             margin="dense"

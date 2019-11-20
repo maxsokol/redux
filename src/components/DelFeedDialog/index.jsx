@@ -16,9 +16,10 @@ const DelFeedDialog = ({delFeed, open, onClose, categories, currentFeed, current
   let arrCatIndex;
   const arrCatIndexCalc = (item) => {
     categories.map(function (el, index) {
-      if(el.category == item) {
+      if(el.category === item) {
         return arrCatIndex = index;        
       }
+      return false;
     }); 
   }
   // End For Array index calculate (from 0 to end) for category
@@ -28,9 +29,10 @@ const DelFeedDialog = ({delFeed, open, onClose, categories, currentFeed, current
   let arrFeedIndex;
   const arrFeedIndexCalc = (cat, item) => {   
     categories[cat].feeds.map(function (el, index) {
-      if(el.title == item) {  
+      if(el.title === item) {  
         return arrFeedIndex = index;        
       }
+      return false;
     }); 
   }
   // End For Array index calculate (from 0 to end) for Feed

@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles ( theme => ({
@@ -51,21 +50,18 @@ const FeedList = ({allCategories}) => {
 
   const AddFeedListItem = (currentCategory) => 
   <Grid item xs={6} md={4}>
-    <Card key = '0' classes={containerClasses}>
-      <CardActionArea>
-        <CardMedia title='Добавить корм' />
+    <Card key={0} classes={containerClasses}>
+      <CardActionArea>        
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
           Добавить корм
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            <IconButton aria-label="add" classes={addbuttonClasses}>
-              <AddCircleOutlineIcon className={classes.addicon}  onClick={handleClickOpen}/>
-            </IconButton>
-            <AddFeedDialog  products={products} 
-              categories={allCategories} open={open} onClose={handleClickClose}
-              currentCategory={currentCategory} /> 
-          </Typography>
+          <IconButton aria-label="add" classes={addbuttonClasses} onClick={handleClickOpen}>
+            <AddCircleOutlineIcon className={classes.addicon} />
+          </IconButton>
+          <AddFeedDialog  products={products} 
+            categories={allCategories} open={open} onClose={handleClickClose}
+            currentCategory={currentCategory} /> 
         </CardContent>
       </CardActionArea>
     </Card>
@@ -74,14 +70,14 @@ const FeedList = ({allCategories}) => {
 
   const FeedListItems = products.map(feed =>
     <>      
-      <Switch>
+      <Switch key={feed.id}>
         <Route exact path = "/"> 
-          <Grid item xs={6} md={4}>
+          <Grid item xs={6} md={4} key={feed.id} >
             <Feed feed={feed} key={feed.id} products={products} />            
           </Grid>          
         </Route>
         <Route path = {`/${feed.category}`} > 
-          <Grid item xs={6} md={4}>           
+          <Grid item xs={6} md={4} key={feed.id} >           
             <Feed feed={feed} key={feed.id} products={products} />            
           </Grid>           
         </Route>        
@@ -97,7 +93,7 @@ const FeedList = ({allCategories}) => {
 
   const currentCategoryName = allCategories.map(cat =>
       <Route path = {`/${cat.category}`} > 
-        <Grid xs={12} md={12}> 
+        <Grid key={cat.id} > 
           <Typography variant="h5" className={classes.title}>{cat.category}</Typography>    
         </Grid>    
       </Route>    
@@ -107,7 +103,7 @@ const FeedList = ({allCategories}) => {
     <Grid item xs={12} md={9} container direction="row" className={classes.wrapper}>
       
         <Route exact path = "/"> 
-          <Grid xs={12} md={12}> 
+          <Grid> 
             <Typography variant="h5" className={classes.title}>Весь корм</Typography>  
           </Grid>           
         </Route>
@@ -115,7 +111,7 @@ const FeedList = ({allCategories}) => {
         {currentCategoryName}
       
 
-      <Grid xs={12} md={12} container direction="row">       
+      <Grid container direction="row">       
         {FeedListItems} 
         {AddFeedListItemRoute}
         <Route exact path = "/"> 

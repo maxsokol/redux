@@ -22,9 +22,10 @@ const UpdateCategoryDialog = ({updateCategory, open, onClose, categories, curren
 
   const ArrIndexCalc = (currentCategory) => {
     categories.map(function (el, index) {
-      if(el.category == currentCategory) {
+      if(el.category === currentCategory) {
         return arrNumber = index;
       }
+      return false;
     }); 
   }  
   

@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import {delCategoryCreator} from '../redux/categories-reducer';
 import DelCategoryDialog from '../components/DelCategoryDialog';
 import UpdateCategoryDialog from '../components/UpdateCategoryDialog';
 import IconButton from '@material-ui/core/IconButton';

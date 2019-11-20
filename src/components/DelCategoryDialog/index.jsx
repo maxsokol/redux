@@ -32,9 +32,10 @@ const DelCategoryDialog = ({deleteCategory, addFeedFromDelCategory, open, onClos
 
   const ArrIndexCalc = (currentCategory) => {
     categories.map(function (el, index) {
-      if(el.category == currentCategory) {
+      if(el.category === currentCategory) {
         return arrNumber = index;
       }
+      return false;
     }); 
   }  
   
@@ -70,9 +71,10 @@ const DelCategoryDialog = ({deleteCategory, addFeedFromDelCategory, open, onClos
 
   const arrIndexCalcForAddFeed = (cat) => {
     categories.map(function (el, index) {
-      if(el.category == cat) {
+      if(el.category === cat) {
         return catForAddFeedIndex = index;
       }
+      return false;
     });   
   }  
 
@@ -106,7 +108,7 @@ const DelCategoryDialog = ({deleteCategory, addFeedFromDelCategory, open, onClos
             </>
           </p>
           <FormControl>
-            <InputLabel htmlFor="uncontrolled-native">Перенести в категорию</InputLabel>
+            <InputLabel htmlFor="uncontrolled-native">Перенести в</InputLabel>
             <NativeSelect
               defaultValue={'Notselect'}
               onChange={handleChangeCategoryName}            >

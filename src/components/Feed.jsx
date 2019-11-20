@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import DelFeedDialog from '../components/DelFeedDialog';
 import UpdateFeedDialog from '../components/UpdateFeedDialog';
@@ -46,7 +45,6 @@ const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCatego
   const containerClasses = { root: classes.container };
   const containerinnerClasses = { root: classes.containerinner };
   const titleClasses = { root: classes.title };
-  const priceClasses =  { root: classes.price };
   const shelflifeClasses = { root: classes.shelflife };
   const buttonClasses = { root: classes.button };
   const textClasses = { root: classes.text };
@@ -59,14 +57,12 @@ const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCatego
  return (
     <Card key = {id} classes={containerClasses}>
     <CardActionArea>
-      <CardMedia title={title} />
       <CardContent  classes={containerinnerClasses}>
         <Typography gutterBottom variant="h5" component="h2" classes={titleClasses}>
           {title}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">        
+        </Typography>      
           <Typography color="textSecondary" variant="body2">Цена: 
-            <Typography classes={priceClasses}>{price} руб.</Typography>
+            <span className={classes.price}>{price} руб.</span>
           </Typography>
           <Typography variant="body2" component="p" classes={textClasses}> 
             {text}
@@ -74,7 +70,6 @@ const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCatego
           <Typography color="textSecondary" variant="body2" classes={shelflifeClasses}>
             Срок годности: {shelflife}
           </Typography>
-        </Typography>
       </CardContent>
     </CardActionArea>
     <CardActions>
