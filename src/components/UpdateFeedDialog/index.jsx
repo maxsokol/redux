@@ -7,14 +7,27 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {connect} from 'react-redux';
 import {updFeedCreator} from '../../redux/categories-reducer';
-
+import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
+const useStyles = makeStyles({
+  title: {
+    padding: 0,
+  },
+  input: {
+    display: 'block',
+    margin: '25px 0',
+  }
+});
 
 const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, currentFeed}) =>  {
+
+  const classes = useStyles();
+  const titleClasses = { root: classes.title };
+  const inputClasses = { root: classes.input };
 
   let categoryNumber = 0; //First category in initial
 
@@ -104,10 +117,11 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Изменить характеристики корма</DialogTitle>        
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">          
 
         <DialogContent>
+          <DialogTitle id="form-dialog-title" classes={titleClasses}>Изменить корм</DialogTitle>  
+
           <TextField
             error={checkFeedNameFlag}
             helperText={checkFeedName}
@@ -121,9 +135,6 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
             onChange={handleChangeFeedName}
           />
 
-        </DialogContent>
-
-        <DialogContent>
           <TextField
             error={( feedPrice > 0 || feedPrice == 'none' ) ? false : true}
             helperText={( feedPrice > 0 || feedPrice == 'none' ) ? 'Больше нуля, естественно' : 'Цена должна быть больше нуля' }
@@ -137,9 +148,7 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
             type="number"            
             onChange={handleChangeFeedPrice}
           />
-        </DialogContent>
 
-        <DialogContent>
           <TextField
             autoFocus
             label="Описание"
@@ -150,20 +159,16 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
             required
             onChange={handleChangeFeedDesc}
           />
-        </DialogContent>
 
-        <DialogContent>
-          <TextField
+          <TextField classes={inputClasses}
             id="date"
             label="Срок годности"
             type="date"
             defaultValue={feedShelflife}
             onChange={handleChangeFeedShelflife}
           />
-        </DialogContent>
 
-        <DialogContent>
-          <FormControl>
+          <FormControl classes={inputClasses}>
             <InputLabel htmlFor="uncontrolled-native">Категория корма</InputLabel>
             <NativeSelect
               defaultValue={currentCat}
@@ -177,24 +182,24 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
             </NativeSelect>
             <FormHelperText>Выберите пожалуйста</FormHelperText>
           </FormControl>
+        
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Закрыть
+            </Button>
+
+            { (checkFeedNameFlag || feedPrice < 0 ) ? (
+              <Button color="primary">
+                Заполните поля
+              </Button> 
+              ) : (
+              <Button onClick={handleSubmit} color="primary">
+              Редактировать
+            </Button> )
+            }
+
+          </DialogActions>
         </DialogContent>
-
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Закрыть
-          </Button>
-
-          { (checkFeedNameFlag || feedPrice < 0 ) ? (
-            <Button color="primary">
-              Заполните поля
-            </Button> 
-            ) : (
-             <Button onClick={handleSubmit} color="primary">
-             Редактировать
-           </Button> )
-          }
-
-        </DialogActions>
       </Dialog>
     </div>
   );

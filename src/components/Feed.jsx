@@ -11,26 +11,45 @@ import Button from '@material-ui/core/Button';
 import DelFeedDialog from '../components/DelFeedDialog';
 import UpdateFeedDialog from '../components/UpdateFeedDialog';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
   container: {
-    margin: '6px 3px 0 0', background: '#f7f3f2', border: '1px solid #e2e0df',
+    margin:'6px 3px 0 0', background:'#f7f3f2', border:'1px solid #e2e0df', 
+  },
+  containerinner: {
+    minHeight:'125px',
+    [theme.breakpoints.down('sm')]: { minHeight:'135px', },
   },
   price: {
-    fontWeight: 'bold', color: '#189434', display: 'inline-block', paddingLeft: '4px'
+    fontWeight:'bold', color:'#189434', display:'inline-block', paddingLeft:'4px'
+  },
+  title: {
+    [theme.breakpoints.down('sm')]: { marginBottom: 0, },
+  },
+  text: {
+    [theme.breakpoints.down('sm')]: { fontSize:'.8em', },   
   },
   shelflife: {
     fontSize: '.8em', paddingTop: '5px'
+  },
+  button: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize:'.5em', background:'#cae4d0', textAlign:'left', marginRight: '-10px'
+    },
   }
-})
+}));
 
 const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCategories, products }) => {
   const classes = useStyles();
 
   const [openDeleteFeed, setOpenDeleteFeed] = React.useState(false);
   const [openUpdateFeed, setOpenUpdateFeed] = React.useState(false);
-  const containetClasses = { root: classes.container };
+  const containerClasses = { root: classes.container };
+  const containerinnerClasses = { root: classes.containerinner };
+  const titleClasses = { root: classes.title };
   const priceClasses =  { root: classes.price };
   const shelflifeClasses = { root: classes.shelflife };
+  const buttonClasses = { root: classes.button };
+  const textClasses = { root: classes.text };
 
   let handleClickOpenDelFeed = () => setOpenDeleteFeed(true);   
   const handleCloseDeleteFeedClick = () => setOpenDeleteFeed(false);  
@@ -38,18 +57,20 @@ const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCatego
   const handleCloseUpdateFeedClick = () => setOpenUpdateFeed(false);
 
  return (
-    <Card key = {id} classes={containetClasses}>
+    <Card key = {id} classes={containerClasses}>
     <CardActionArea>
       <CardMedia title={title} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="h2">
-        {title}
+      <CardContent  classes={containerinnerClasses}>
+        <Typography gutterBottom variant="h5" component="h2" classes={titleClasses}>
+          {title}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">        
           <Typography color="textSecondary" variant="body2">Цена: 
             <Typography classes={priceClasses}>{price} руб.</Typography>
           </Typography>
-          {text}
+          <Typography variant="body2" component="p" classes={textClasses}> 
+            {text}
+          </Typography>
           <Typography color="textSecondary" variant="body2" classes={shelflifeClasses}>
             Срок годности: {shelflife}
           </Typography>
@@ -57,13 +78,13 @@ const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCatego
       </CardContent>
     </CardActionArea>
     <CardActions>
-      <Button size="small" color="primary"  onClick={handleOpenUpdateFeedClick}>
+      <Button size="small" color="primary"  onClick={handleOpenUpdateFeedClick} classes={buttonClasses}>
         Редактировать
       </Button>
       <UpdateFeedDialog categories={allCategories} currentFeed={title}
         currentCat={category} open={openUpdateFeed} onClose={handleCloseUpdateFeedClick} products={products} />
 
-      <Button size="small" color="primary" onClick={handleClickOpenDelFeed}>
+      <Button size="small" color="primary" onClick={handleClickOpenDelFeed} classes={buttonClasses}>
         Удалить
       </Button>
       <DelFeedDialog categories={allCategories} currentFeed={title}

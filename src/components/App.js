@@ -9,17 +9,35 @@ import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
   container: {
     paddingTop: '20px',
+    [theme.breakpoints.down('sm')]: { paddingTop: '8px' },
   },
-  image: {
-    maxWidth: '100%'
+  mainimage: {
+    maxWidth: '100%',
   },
   sitetitle: {
-    color: '#189434', marginTop: '20px', fontWeight: 'bold'
+    color: '#189434', marginTop: '20px', fontWeight: 'bold',
+    [theme.breakpoints.down('sm')]: {
+      fontSize:'.7em', background:'#cae4d0', padding:'2px 5px', margin:'0',
+    },
+  },
+  sitesubtitle: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize:'1.4em', padding:'2px 5px', margin:'0',
+    },
+  },
+  question: {
+    display:'block', marginTop: '20px',
+    [theme.breakpoints.down('sm')]: {
+      fontSize:'.8em', padding:'2px 5px', margin:'0',
+    },
+  }, 
+  inform: {
+      marginTop: '50px',  textAlign: 'right', width:'100%'   
   }
-})
+}));
 
 const App = (props) => { 
   const classes = useStyles();
@@ -30,18 +48,18 @@ const App = (props) => {
     <>
       <Grid xs={12} md={12} container direction="row"  className={classes.container}>
 
-        <Grid item xs={12} md={5}>
-          <a href="/#/"><img src={cat} alt="cat" className={classes.image} /></a>
+        <Grid item xs={5} md={5}>
+          <a href="/#/"><img src={cat} alt="cat" className={classes.mainimage} /></a>
         </Grid>  
 
-        <Grid item xs={12} md={7}>
+        <Grid item xs={7} md={7}>
 
           <Typography variant="h2" className={classes.sitetitle}>
             Feed the cat
           </Typography>
 
-          <Typography variant="h4">Накормите кота</Typography>
-          <p>Вы достойны кормить кота?</p>
+          <Typography variant="h4" className={classes.sitesubtitle}>Накормите кота</Typography>
+          <Typography variant="p" className={classes.question}>Вы достойны кормить кота?</Typography>
           <Switch            
             onChange={handleClickWorthy}
             value="false"
@@ -62,6 +80,9 @@ const App = (props) => {
           потому что <b>Вы не достойны кормить кота</b>.</p>
         </Grid>)      
       }
+
+         <p  className={classes.inform}>Выполнил Максим Соколов. <a href="/#info">Описание</a>. </p>
+
     </>
   ) 
 }

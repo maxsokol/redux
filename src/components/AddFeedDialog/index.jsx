@@ -7,35 +7,37 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {connect} from 'react-redux';
 import {addFeedCreator} from '../../redux/categories-reducer';
-
+import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
+const useStyles = makeStyles({
+  title: {
+    padding: 0,
+  },
+  input: {
+    display: 'block',
+    margin: '25px 0',
+  }
+});
 
 const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCategory}) =>  {
+  const classes = useStyles();
 
   const [feedName, setFeedName] = React.useState('Noname');
   const [feedPrice, setFeedPrice] = React.useState('none');
   const [feedDesc, setFeedDesc] = React.useState('');
   let [feedShelflife] = React.useState('');
   
-  const handleChangeFeedName = (e) => {
-    setFeedName(e.target.value);
-  };
+  const handleChangeFeedName = (e) => setFeedName(e.target.value);
+  const handleChangeFeedPrice = (e) => setFeedPrice(e.target.value);
+  const handleChangeFeedDesc = (e) => setFeedDesc(e.target.value);
+  const handleClose = () => onClose(false);
 
-  const handleChangeFeedPrice = (e) => {
-    setFeedPrice(e.target.value);
-  };
-
-  const handleChangeFeedDesc = (e) => {
-    setFeedDesc(e.target.value);
-  };
-
-  const handleClose = () => {
-    onClose(false);
-  };
+  const titleClasses = { root: classes.title };
+  const inputClasses = { root: classes.input };
 
   /* Begin Tomorrow day script */
   let today = new Date();
@@ -98,10 +100,12 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Введите характеристики корма</DialogTitle>        
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">              
 
         <DialogContent>
+
+        <DialogTitle id="form-dialog-title" classes={titleClasses}>Добавить корм</DialogTitle> 
+
           <TextField
             error={checkFeedNameFlag}
             helperText={checkFeedName}
@@ -114,10 +118,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             onChange={handleChangeFeedName}
           />
 
-        </DialogContent>
-
-        <DialogContent>
-          <TextField
+           <TextField
             error={( feedPrice > 0 || feedPrice == 'none' ) ? false : true}
             helperText={( feedPrice > 0 || feedPrice == 'none' ) ? 'Больше нуля, естественно' : 'Цена должна быть больше нуля' }
             autoFocus
@@ -129,9 +130,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             type="number"            
             onChange={handleChangeFeedPrice}
           />
-        </DialogContent>
 
-        <DialogContent>
           <TextField
             autoFocus
             label="Описание"
@@ -141,20 +140,16 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             required
             onChange={handleChangeFeedDesc}
           />
-        </DialogContent>
-
-        <DialogContent>
-          <TextField
+   
+          <TextField classes={inputClasses}
             id="date"
             label="Срок годности"
             type="date"
             defaultValue={feedShelflife}
             onChange={handleChangeFeedShelflife}
           />
-        </DialogContent>
 
-        <DialogContent>
-          <FormControl>
+          <FormControl classes={inputClasses}>
             <InputLabel htmlFor="uncontrolled-native">Категория корма</InputLabel>
             <NativeSelect
               defaultValue={currentCategory}
@@ -168,24 +163,26 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             </NativeSelect>
             <FormHelperText>Выберите пожалуйста</FormHelperText>
           </FormControl>
+
+
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Закрыть
+            </Button>
+
+            { (checkFeedNameFlag || feedName == 'Noname' || feedPrice < 0 || feedPrice == 'none' ) ? (
+              <Button color="primary">
+                Заполните поля
+              </Button> 
+              ) : (
+              <Button onClick={handleSubmit} color="primary">
+              Добавить
+            </Button> )
+            }
+
+          </DialogActions>
+
         </DialogContent>
-
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Закрыть
-          </Button>
-
-          { (checkFeedNameFlag || feedName == 'Noname' || feedPrice < 0 || feedPrice == 'none' ) ? (
-            <Button color="primary">
-              Заполните поля
-            </Button> 
-            ) : (
-             <Button onClick={handleSubmit} color="primary">
-             Добавить
-           </Button> )
-          }
-
-        </DialogActions>
       </Dialog>
     </div>
   );

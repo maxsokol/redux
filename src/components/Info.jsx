@@ -14,6 +14,7 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import QueueIcon from '@material-ui/icons/Queue';
 import UpdateIcon from '@material-ui/icons/Update';
 import PetsIcon from '@material-ui/icons/Pets';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const useTreeItemStyles = makeStyles(theme => ({
   root: {
@@ -59,10 +60,16 @@ const useTreeItemStyles = makeStyles(theme => ({
     paddingLeft: '10px',
     background: '#e2e0df',
     color: 'black',
+    [theme.breakpoints.down('sm')]: {
+      background: 'none',
+    },
   },
   labelInfo: {
     width: '82%',
     paddingLeft: '10px',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 }));
 
@@ -107,21 +114,30 @@ StyledTreeItem.propTypes = {
   labelText: PropTypes.string.isRequired,
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
   root: {
     flexGrow: 1,
     maxWidth: '100%',
   },
-});
+  block: {
+    display: 'block',
+  },
+  green: {
+    color: '#189434',
+  },
+}));
 
 export default function GmailTreeView() {
   const classes = useStyles();
 
   return (
-    <>
-    <p>Выполняет Соколов Максим</p>
-    <p><a href="https://github.com/maxsokol/redux" target="_blank">https://github.com/maxsokol/redux</a></p>
-    <p><b>Схема проекта: </b><br /></p>
+    <div className={classes.block}>
+      <Typography variant="h5">Описание задачи</Typography>             
+      <p>Выполняет Максим Соколов<br /></p>
+      <p>
+        <a href="https://github.com/maxsokol/redux" target="_blank">https://github.com/maxsokol/redux</a>
+      </p>
+      <Typography variant="p"><b>Схема проекта: </b></Typography>
 
     <TreeView
       className={classes.root}
@@ -143,8 +159,16 @@ export default function GmailTreeView() {
       <StyledTreeItem nodeId="3" 
         labelText="CategoriesList.jsx" 
         labelIcon={Label}
-        labelInfo="allCategories, addCategory, deleteCategory"
+        labelInfo="allCategories, addCategory"
       >
+        <StyledTreeItem
+          nodeId="5"
+          labelText="Category.jsx"
+          labelIcon={AssignmentIcon}
+          labelInfo="allCategories, category"
+          color="#1a73e8"
+          bgColor="#e8f0fe"
+        />
         <StyledTreeItem
           nodeId="5"
           labelText="AddCategoryDialog/"
@@ -209,21 +233,24 @@ export default function GmailTreeView() {
     </TreeView>
 
 
-<div className="card mx-auto" >
+<div className="card mx-auto">
 <p><b>Задание: </b><br />
 Написать приложение «каталог товаров», 
 в котором должно быть минимум 3 окна: авторизация, список товаров, 
 список категорий. </p>
 
 <p>Frontend:<br />
-Обязательно: Angular 4+/React/VueJS</p>
+Обязательно: Angular 4+/React/VueJS<br />
+<i className={classes.green}>(Использовал React + Redux)</i></p>
 
 <p>Желательно: <br />
-  bootstrap/google material, LESS or SASS</p>
+  bootstrap/google material, LESS or SASS<br />
+  <i className={classes.green}>(Использовал Material UI + makeStyles)</i></p>
 
 <p>Backend: <br />
   По желанию. Можно использовать Fake Service, local storage 
-или Node Express.</p>
+или Node Express.<br />
+<i className={classes.green}>(Пока не использовал)</i></p>
 
 <p>Минимум 3 формы: авторизация, список товаров, список категорий.
 Авторизацию можно сделать упрощённую (просто проставлять флаг является ли 
@@ -245,10 +272,10 @@ d.  Категория (выбирается из списка)<br />
 4)  Редактирование/добавление сделать в отдельной компоненте (можно открывать 
 в модале или через router, другие варианты так же рассматриваются).</p>
 
-<p><b>Недочеты: </b></p>
+<p><b>Недочеты, которые не допущу на рабочем проекте: </b></p>
 <ol>
-  <li>Проект выполнен на JS, а не на TypeScript</li>
-  <li>Pupup из меню выводится за раз столько, сколько пунктов в меню.</li>
+  <li>Проект выполнен на JS, а не на TypeScript. Просто TypeScript еще не изучил.</li>
+  <li>При нажатии кнопки submit у незаполненой формы не подсвечивается красным, где не заполнено. И не переводится курсор туда.</li>
   <li>При нажатии на заначек редактировать или удалить автоматически перемещаешься на этот пункт меню, наверно это плохо.</li>
   <li>При удалении пункта меню человек остается на том же адресе, на пустой странице.</li>
   <li>Стоит добавить запрет на удаление последней категории (т.е. если вообще все удалить, будет ошибка).</li>
@@ -256,17 +283,18 @@ d.  Категория (выбирается из списка)<br />
   <li>Если во время заполнения форм нажать на фон, форма запомнит данные, но не покажет их при повторном открытии.</li>
   <li>После добавления товара форма помнит содержание все полей, хотя не показывает их. Т.е.
      при нажатии "Добавить" появится еще один такой же товар.</li>
-  <li>Дизайн минималистичный и плохо настроена адаптивная верстка, пока не стал тратить на это время.</li>
   <li>Еще не выполнен пункт Backend. Однко в задании сказано что он "по желанию".</li>
 </ol>
 </div>
 
 <p><b>Полезная инфа: </b></p>
 <ol>
-  <li>Material-UI Styling with CSS in JS <a href="https://material-ui.com/styles/api/">material-ui.com</a>, 
-  &nbsp;<a href="https://www.youtube.com/watch?v=rEHvPiLWSbQ&list=PLVsgh6h4zk-L-OzWglEh-dBb3PrGcL96y&index=5">YouTube</a></li>
+  <li>Material-UI Styling with CSS in JS. More information about the advantages of this method:
+    <br /><a href="https://material-ui.com/styles/api/">material-ui.com</a>. 
+    <br /><a href="https://www.youtube.com/watch?v=rEHvPiLWSbQ&list=PLVsgh6h4zk-L-OzWglEh-dBb3PrGcL96y&index=5">YouTube</a>
+    <br /><a href="https://stackoverflow.com/questions/57220059/internal-implementation-of-makestyles-in-react-material-ui">stackoverflow.com</a></li>
 </ol>
 
-</>
+</div>
   );
 }

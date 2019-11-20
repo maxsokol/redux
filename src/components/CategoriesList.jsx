@@ -1,100 +1,47 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import {addCategoryCreator} from '../redux/categories-reducer';
-import {delCategoryCreator} from '../redux/categories-reducer';
 import { Button, Grid } from '@material-ui/core';
 import AddCategoryDialog from '../components/AddCategoryDialog';
-import DelCategoryDialog from '../components/DelCategoryDialog';
-import UpdateCategoryDialog from '../components/UpdateCategoryDialog';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
+import Category from '../components/Category';
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles( theme => ({
   container: {
-    paddingRight: '20px'
-  },
-  menuitem: {
-    background: '#f7f3f2', border: '1px solid #e2e0df', marginBottom: '-1px'
+    paddingRight: '20px',    
   },
   ahref: { 
     textDecoration: 'none', fontWeight: 'bold' 
   },
-  buttons: {
-    display: 'flex', position: 'absolute', right: '2px'
+  menutitle: {
+    [theme.breakpoints.down('sm')]: { display: 'none' },
   },
-  editbutton: {
-    color: 'rgb(101, 199, 122)', padding: '5px'
-  },
-  deletebutton: {
-    color: 'rgb(199, 155, 101)', padding: '5px'
-  },
-  info: {
-    marginTop: '20px'
+  addcategory: {
+    textTransform: 'none', padding: '4px 16px', background: '#f7f3f2',
+    [theme.breakpoints.down('sm')]: { padding: '2px 25px' },    
   }
-})
 
-const CategoriesList = ({allCategories, addCategory, deleteCategory}) => {
+}))
+
+const CategoriesList = ({allCategories, addCategory}) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [openDel, setOpenDel] = React.useState(false);
-  const [openUpdate, setOpenUpdate] = React.useState(false);
-  const [currentCategory,setCurrentCategory]  = React.useState('');
   const menuitemClasses = { root: classes.menuitem};
-  const editbuttonClasses = { root: classes.editbutton};
-  const deletebuttonClasses = { root: classes.deletebutton};
+  const menutitleClasses = { root: classes.menutitle};
+  const addcategoryClasses = { root: classes.addcategory };
 
-  const handleClickCloseDel = () => setOpenDel(false);
-  const handleClickCloseUpdate = (e) => setOpenUpdate(false);
-  const handleClickOpen = () =>setOpen(true);
-  const handleClickClose = () => setOpen(false);
-  let handleClickOpenUpdate = (currentCategoryName) => {
-    setOpenUpdate(true);
-    setCurrentCategory(currentCategoryName);
-  };
-  const handleClickOpenDel = (currentCategoryName, deleteCategory) => () => {
-    setOpenDel(true);
-    setCurrentCategory(currentCategoryName);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClickClose = () => setOpen(false);  
 
-  let categories = allCategories;  
-
-  let CategoriesItem = categories.map(item =>
-    <a href={`/#/${item.category}`} className={classes.ahref} >
-      <MenuItem classes={menuitemClasses}>
-        
-        {item.category}  
-
-        <div className={classes.buttons}>
-            
-          <IconButton aria-label="delete" className="notoutline" onClick={() => handleClickOpenUpdate(item.category)}
-            classes={editbuttonClasses}>
-            <EditIcon />
-          </IconButton>
-
-          <UpdateCategoryDialog categories={categories} open={openUpdate} onClose={handleClickCloseUpdate} 
-            currentCategory={currentCategory}/>
-
-          <IconButton aria-label="delete" className="notoutline" onClick={handleClickOpenDel(item.category)} // career finction
-            classes={deletebuttonClasses} >
-            <DeleteIcon />
-          </IconButton>
-
-          <DelCategoryDialog deleteCategory={deleteCategory} categories={categories} 
-            open={openDel} onClose={handleClickCloseDel} currentCategory={currentCategory}/>
-
-        </div>
-      </MenuItem>
-    </a>
-    );
-
+  let CategoriesItem = allCategories.map( item =>  <Category item={item} key={item.id} category={item.category}/> );
+    
   return (
     <Grid item xs={12} md={3} className={classes.container} >
-      <Typography variant="h5">Категории</Typography>
+      <Typography variant="h5" classes={menutitleClasses}>Категории</Typography>
 
       <MenuList>  
         <a href={`/#/`} className={classes.ahref}>      
@@ -105,14 +52,12 @@ const CategoriesList = ({allCategories, addCategory, deleteCategory}) => {
         {CategoriesItem}
       </MenuList>
 
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button onClick={handleClickOpen}  classes={addcategoryClasses}>
         Добавить категорию
       </Button>
       <AddCategoryDialog addCategory={addCategory} open={open} onClose={handleClickClose}/>
-
-      <p className={classes.info}><a href="/#info">Описание задачи</a></p>    
+          
     </Grid>
-
   ) 
 }
 
@@ -127,9 +72,6 @@ const mapDispatchToProps = (dispatch) => {
     addCategory: (name) => {
       dispatch(addCategoryCreator(name));
     },
-    deleteCategory: (categoriesFilter) => {
-      dispatch(delCategoryCreator(categoriesFilter)); 
-    }
   }
 }
 
