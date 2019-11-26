@@ -1,14 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux';
-import {addCategoryCreator} from '../redux/categories-reducer';
+import { connect } from 'react-redux';
+import { addCategoryCreator } from '../../redux/categories-reducer';
+import AddCategoryDialog from '../categories/AddCategoryDialog';
+import Category from '../categories/Category';
 import { Button, Grid } from '@material-ui/core';
-import AddCategoryDialog from '../components/AddCategoryDialog';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
-import Category from '../components/Category';
-
 
 const useStyles = makeStyles( theme => ({
   container: {
@@ -28,7 +27,6 @@ const useStyles = makeStyles( theme => ({
     textTransform: 'none', padding: '4px 16px', background: '#f7f3f2',
     [theme.breakpoints.down('sm')]: { padding: '2px 25px' },    
   }
-
 }))
 
 const CategoriesList = ({allCategories, addCategory}) => {

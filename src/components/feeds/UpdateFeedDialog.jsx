@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {connect} from 'react-redux';
-import {updFeedCreator} from '../../redux/categories-reducer';
+import {updFeedCreator} from '../../redux/feeds-reducer';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -25,48 +25,33 @@ const useStyles = makeStyles({
   }
 });
 
-const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, currentFeed}) =>  {
+const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat, currentFeed}) =>  {
 
   const classes = useStyles();
   const titleClasses = { root: classes.title };
   const inputClasses = { root: classes.input };
+  const [newCat, setNewCat] = React.useState(currentCat); 
 
-  let categoryNumber = 0; //First category in initial
-
-  let currentCategoryNumber = function(currentCategoryName) {
-    for (let i = 0; i < categories.length; i++) {
-      if (categories[i].category === currentCategoryName) {
-        return categoryNumber = i;     
-      }
-    }
-  } 
-
-  categoryNumber = currentCategoryNumber(currentCat);
-
-  let currentCatIndex = categoryNumber;
-
-  const handleChangeCategoryName = (e) => {
-    currentCategoryNumber(e.target.value);     
-  }; 
+  const changeCategoryName = (e) => setNewCat(e.target.value); 
   
-  // Begin For Array index calculate for Feed
+  // Begin. For Array index calculate for Feed
   let arrFeedIndex;
-  const arrFeedIndexCalc = (cat, item) => {   
-    categories[cat].feeds.map(function (el, index) {
+  const arrFeedIndexCalc = (item) => {   
+    feeds.map(function (el, index) {
       if(el.title === item) {  
         return arrFeedIndex = index;        
       }
       return false;
     }); 
   }
-  // End For Array index calculate for Feed
+  // End. For Array index calculate for Feed
 
-  arrFeedIndexCalc(categoryNumber, currentFeed);
+  arrFeedIndexCalc(currentFeed);
 
-  let nameBefore = categories[categoryNumber].feeds[arrFeedIndex].title;
-  let priceBefore = categories[categoryNumber].feeds[arrFeedIndex].price;
-  let textBefore = categories[categoryNumber].feeds[arrFeedIndex].text;  
-  let dateOfFeed = categories[categoryNumber].feeds[arrFeedIndex].shelflife;  
+  let nameBefore = feeds[arrFeedIndex].title;
+  let priceBefore = feeds[arrFeedIndex].price;
+  let textBefore = feeds[arrFeedIndex].text;  
+  let dateOfFeed = feeds[arrFeedIndex].shelflife;  
   let [feedShelflife, setFeedShelflife] = React.useState(dateOfFeed);
 
   let [feedName, setFeedName] = React.useState(nameBefore);
@@ -82,9 +67,6 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
   const handleChangeFeedDesc = (e) => {
     setFeedDesc(e.target.value);
   };
-  /* const handleFeedShelflifeChange = (e) => {
-    return feedShelflife = e.target.value;
-  };  */
 
 
   const handleFeedShelflifeChange = (date) => {
@@ -125,7 +107,7 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
 
 
   const handleSubmit = () => {    
-    updFeed(feedName, feedPrice, feedDesc, feedShelflife, categoryNumber, arrFeedIndex, currentCatIndex);
+    updFeed(feedName, feedPrice, feedDesc, feedShelflife, arrFeedIndex, newCat);
     onClose(false);
   };
 
@@ -189,7 +171,7 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
             <InputLabel htmlFor="uncontrolled-native">Категория корма</InputLabel>
             <NativeSelect
               defaultValue={currentCat}
-              onChange={handleChangeCategoryName}
+              onChange={changeCategoryName}
             >
               {categories.map(option => (
               <option key={option.id} value={option.category}>
@@ -224,14 +206,15 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, currentCat, curre
 
 const mapStateToProps = function(state) {
   return {
-    allCategories: state.categoriesReducer.allCategories
+    allCategories: state.categoriesReducer.allCategories,
+    feeds: state.feedsReducer.feeds,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updFeed: (name, price, desc, shelflife, categoryNumber, feedNumber, currentCatIndex) => {
-      dispatch(updFeedCreator(name, price, desc, shelflife, categoryNumber, feedNumber, currentCatIndex));
+    updFeed: (name, price, desc, shelflife, feedNumber, newCat) => {
+      dispatch(updFeedCreator(name, price, desc, shelflife, feedNumber, newCat));
     }
   }
 }

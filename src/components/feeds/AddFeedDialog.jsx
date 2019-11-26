@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {connect} from 'react-redux';
-import {addFeedCreator} from '../../redux/categories-reducer';
+import {addFeedCreator} from '../../redux/feeds-reducer';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -20,22 +20,21 @@ const useStyles = makeStyles({
     padding: 0,
   },
   input: {
-    display: 'block',
-    margin: '25px 0',
+    display: 'block', margin: '25px 0',
   }
 });
 
 const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCategory}) =>  {
   const classes = useStyles();
-
   const [feedName, setFeedName] = React.useState('Noname');
   const [feedPrice, setFeedPrice] = React.useState('none');
   const [feedDesc, setFeedDesc] = React.useState('');
-  let [feedShelflife, setFeedShelflife] = React.useState('notselect');
-  
-  const handleChangeFeedName = (e) => setFeedName(e.target.value);
-  const handleChangeFeedPrice = (e) => setFeedPrice(e.target.value);
-  const handleChangeFeedDesc = (e) => setFeedDesc(e.target.value);
+  const [selectedCategory, setSelectedCategory] = React.useState(currentCategory);
+  let [feedShelflife, setFeedShelflife] = React.useState('notselect');  
+
+  const changeFeedName = (e) => setFeedName(e.target.value);
+  const changeFeedPrice = (e) => setFeedPrice(e.target.value);
+  const changeFeedDesc = (e) => setFeedDesc(e.target.value);
   const handleClose = () => onClose(false);
 
   const titleClasses = { root: classes.title };
@@ -46,7 +45,6 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
   let today = new Date();
   let tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
   let getTomorowDate = function(date){
-    //tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
     let dayTomorrow = tomorrow.getDate(); 
     let monthTomorrow = tomorrow.getMonth() + 1; //in js month begin from 0
     let yearTomorrow = tomorrow.getFullYear();   
@@ -58,7 +56,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
 
   /* End Tomorrow day script */  
 
-  const handleFeedShelflifeChange = (date) => {
+  const feedShelflifeChange = (date) => {
     let day = date.getDate();
     let month = date.getMonth() + 1; 
     let year = date.getFullYear();   
@@ -67,27 +65,14 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
     return setFeedShelflife(date); 
   };
 
-  let categoryNumber = 0; //First category in initial
-
-  let currentCategoryNumber = function(currentCategoryName) {
-    for (let i = 0; i < categories.length; i++) {
-      if (categories[i].category === currentCategoryName) {
-        return categoryNumber = i;     
-      }
-    }
-    return false;
-  } 
-    
-  categoryNumber = currentCategoryNumber(currentCategory);
-
-  const handleChangeCategoryName = (e) => {
-    currentCategoryNumber(e.target.value);     
+  const changeCategoryName = (e) => {
+    setSelectedCategory(e.target.value);     
   };   
 
   let productsLenght = products.length;
 
   const handleSubmit = () => {
-    addFeed(feedName, feedPrice, feedDesc, feedShelflife, categoryNumber, productsLenght, categories);
+    addFeed(feedName, feedPrice, feedDesc, feedShelflife, selectedCategory, productsLenght);
     onClose(false);
   };
 
@@ -128,7 +113,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             id="name"
             fullWidth
             required
-            onChange={handleChangeFeedName}
+            onChange={changeFeedName}
           />
 
            <TextField
@@ -141,7 +126,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             fullWidth
             required
             type="number"            
-            onChange={handleChangeFeedPrice}
+            onChange={changeFeedPrice}
           />
 
           <TextField
@@ -151,7 +136,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             id="description"
             fullWidth
             required
-            onChange={handleChangeFeedDesc}
+            onChange={changeFeedDesc}
           />
 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -161,7 +146,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
               minDate={tomorrow} 
               format="MM/dd/yyyy"
               value={feedShelflife} 
-              onChange={handleFeedShelflifeChange}     
+              onChange={feedShelflifeChange}     
             />
           </MuiPickersUtilsProvider>
 
@@ -169,7 +154,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             <InputLabel htmlFor="uncontrolled-native">Категория корма</InputLabel>
             <NativeSelect
               defaultValue={currentCategory}
-              onChange={handleChangeCategoryName}
+              onChange={changeCategoryName}
             >
               {categories.map(option => (
               <option key={option.id} value={option.category}>
@@ -186,7 +171,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
             </Button>
 
             { (checkFeedNameFlag || feedName === 'Noname' || feedPrice < 0 || feedPrice === 'none' ) ? (
-              <Button color="primary">
+              <Button color="primary" disabled>
                 Заполните поля
               </Button> 
               ) : (
@@ -211,8 +196,8 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addFeed: (name, price, desc, shelflife, categoryNumber, productsLenght) => {
-      dispatch(addFeedCreator(name, price, desc, shelflife, categoryNumber, productsLenght));
+    addFeed: (name, price, desc, shelflife, category, productsLenght) => {
+      dispatch(addFeedCreator(name, price, desc, shelflife, category, productsLenght));
     }
   }
 }

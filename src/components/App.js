@@ -1,8 +1,8 @@
 import React from 'react';
-import CategoriesList from "./CategoriesList.jsx";
-import FeedList from "./FeedList/index.jsx";
+import CategoriesList from "../components/categories/CategoriesList";
+import FeedList from "../components/feeds/FeedList";
 import cat from '../feed-the-cat.jpg';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import store from '../redux/redux-store.js';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';

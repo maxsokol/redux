@@ -1,8 +1,10 @@
 import {combineReducers, createStore} from "redux";
 import categoriesReducer from './categories-reducer.js';
+import feedsReducer from './feeds-reducer.js';
 
 let reducers = combineReducers({    
     categoriesReducer,
+    feedsReducer,
 }); 
 
 let store = createStore(

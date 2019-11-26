@@ -1,16 +1,16 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
-import Feed from '../Feed.jsx'
-import Info from '../Info.jsx'
-import {connect} from 'react-redux';
-import AddFeedDialog from '../AddFeedDialog';
+import { Switch, Route } from 'react-router-dom';
+import Feed from '../feeds/Feed'
+import Info from '../Info'
+import { connect } from 'react-redux';
+import AddFeedDialog from '../feeds/AddFeedDialog';
+
+import {addCategoryCreator} from '../../redux/categories-reducer';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import {addCategoryCreator} from '../../redux/categories-reducer';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -32,7 +32,7 @@ const useStyles = makeStyles ( theme => ({
   }
 }));
 
-const FeedList = ({allCategories}) => {
+const FeedList = ({allCategories, feeds}) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false); 
   const handleClickOpen = () => setOpen(true);
@@ -40,18 +40,11 @@ const FeedList = ({allCategories}) => {
   const containerClasses = { root: classes.container };
   const addbuttonClasses = { root: classes.addbutton };
 
-  let products = [];
-
-  for (const cat of allCategories) {
-    if (cat.feeds && cat.feeds.length) {
-      products.push(...cat.feeds);
-    }    
-  }
+  let products = feeds;
 
   const AddFeedListItem = (currentCategory) => 
   <Grid item xs={6} md={4}>
-    <Card key={0} classes={containerClasses}>
-      <CardActionArea>        
+    <Card key={0} classes={containerClasses}>   
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
           Добавить корм
@@ -63,7 +56,6 @@ const FeedList = ({allCategories}) => {
             categories={allCategories} open={open} onClose={handleClickClose}
             currentCategory={currentCategory} /> 
         </CardContent>
-      </CardActionArea>
     </Card>
   </Grid>;
 
@@ -108,18 +100,19 @@ const FeedList = ({allCategories}) => {
           </Grid>           
         </Route>
 
-        {currentCategoryName}
-      
+        {currentCategoryName}      
 
       <Grid container direction="row">       
         {FeedListItems} 
         {AddFeedListItemRoute}
-        <Route exact path = "/"> 
-          {AddFeedListItem('Для котов')}           
-        </Route>
-        <Route path = '/info' > 
-            <Info />    
-        </Route>
+        <Switch>
+          <Route exact path = "/"> 
+            {AddFeedListItem('Для котов')}           
+          </Route>
+          <Route path = '/info' > 
+              <Info />    
+          </Route>
+        </Switch>
       </Grid>
 
     </Grid>
@@ -128,7 +121,8 @@ const FeedList = ({allCategories}) => {
 
 const mapStateToProps = function(state) {
   return {
-    allCategories: state.categoriesReducer.allCategories
+    allCategories: state.categoriesReducer.allCategories,
+    feeds: state.feedsReducer.feeds,
   }
 }
 

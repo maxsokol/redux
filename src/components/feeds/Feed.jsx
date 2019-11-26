@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import DelFeedDialog from '../feeds/DelFeedDialog';
+import UpdateFeedDialog from '../feeds/UpdateFeedDialog';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import DelFeedDialog from '../components/DelFeedDialog';
-import UpdateFeedDialog from '../components/UpdateFeedDialog';
+
 
 const useStyles = makeStyles( theme => ({
   container: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles( theme => ({
 const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCategories, products }) => {
   const classes = useStyles();
 
-  const [openDeleteFeed, setOpenDeleteFeed] = React.useState(false);
+  const [openDeleteFeed, setOpenDelFeed] = React.useState(false);
   const [openUpdateFeed, setOpenUpdateFeed] = React.useState(false);
   const containerClasses = { root: classes.container };
   const containerinnerClasses = { root: classes.containerinner };
@@ -49,14 +49,13 @@ const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCatego
   const buttonClasses = { root: classes.button };
   const textClasses = { root: classes.text };
 
-  let handleClickOpenDelFeed = () => setOpenDeleteFeed(true);   
-  const handleCloseDeleteFeedClick = () => setOpenDeleteFeed(false);  
-  let handleOpenUpdateFeedClick = () => setOpenUpdateFeed(true);  
-  const handleCloseUpdateFeedClick = () => setOpenUpdateFeed(false);
+  let openDelFeedClick = () => setOpenDelFeed(true);   
+  const closeDelFeedClick = () => setOpenDelFeed(false);  
+  let openUpdateFeedClick = () => setOpenUpdateFeed(true);  
+  const closeUpdateFeedClick = () => setOpenUpdateFeed(false);
 
  return (
     <Card key = {id} classes={containerClasses}>
-    <CardActionArea>
       <CardContent  classes={containerinnerClasses}>
         <Typography gutterBottom variant="h5" component="h2" classes={titleClasses}>
           {title}
@@ -71,19 +70,18 @@ const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCatego
             Срок годности: {shelflife}
           </Typography>
       </CardContent>
-    </CardActionArea>
     <CardActions>
-      <Button size="small" color="primary"  onClick={handleOpenUpdateFeedClick} classes={buttonClasses}>
+      <Button size="small" color="primary"  onClick={openUpdateFeedClick} classes={buttonClasses}>
         Редактировать
       </Button>
       <UpdateFeedDialog categories={allCategories} currentFeed={title}
-        currentCat={category} open={openUpdateFeed} onClose={handleCloseUpdateFeedClick} products={products} />
+        currentCat={category} open={openUpdateFeed} onClose={closeUpdateFeedClick} products={products} />
 
-      <Button size="small" color="primary" onClick={handleClickOpenDelFeed} classes={buttonClasses}>
+      <Button size="small" color="primary" onClick={openDelFeedClick} classes={buttonClasses}>
         Удалить
       </Button>
       <DelFeedDialog categories={allCategories} currentFeed={title}
-        currentCat={category} open={openDeleteFeed} onClose={handleCloseDeleteFeedClick}/>
+        open={openDeleteFeed} onClose={closeDelFeedClick}/>
 
     </CardActions>
   </Card>)
