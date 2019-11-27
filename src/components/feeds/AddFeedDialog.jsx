@@ -26,9 +26,9 @@ const useStyles = makeStyles({
 
 const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCategory}) =>  {
   const classes = useStyles();
-  const [feedName, setFeedName] = React.useState('Noname');
+  let [feedName, setFeedName] = React.useState('Noname');
   const [feedPrice, setFeedPrice] = React.useState('none');
-  const [feedDesc, setFeedDesc] = React.useState('');
+  let [feedDesc, setFeedDesc] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState(currentCategory);
   let [feedShelflife, setFeedShelflife] = React.useState('notselect');  
 
@@ -72,6 +72,8 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
   let productsLenght = products.length;
 
   const handleSubmit = () => {
+    feedName = feedName.split(' ').filter(n => n).join(' ');
+    feedDesc = feedDesc.split(' ').filter(n => n).join(' ');
     addFeed(feedName, feedPrice, feedDesc, feedShelflife, selectedCategory, productsLenght);
     onClose(false);
   };

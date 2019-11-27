@@ -105,14 +105,12 @@ const FeedList = ({allCategories, feeds}) => {
       <Grid container direction="row">       
         {FeedListItems} 
         {AddFeedListItemRoute}
-        <Switch>
-          <Route exact path = "/"> 
-            {AddFeedListItem('Для котов')}           
-          </Route>
-          <Route path = '/info' > 
-              <Info />    
-          </Route>
-        </Switch>
+        <Route exact path = "/"> 
+          {AddFeedListItem('Для котов')}           
+        </Route>
+        <Route path = '/info' > 
+            <Info />    
+        </Route>
       </Grid>
 
     </Grid>

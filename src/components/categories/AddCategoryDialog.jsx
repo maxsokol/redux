@@ -8,13 +8,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default ({addCategory, open, onClose}) =>  {
 
-  const [categoryName, setCategoryName] = React.useState('');
+  let [categoryName, setCategoryName] = React.useState('');
 
-  const changeCategoryName = (e) => setCategoryName(e.target.value);
+  const changeCategoryName = (e) => { 
+    setCategoryName(e.target.value); 
+  } 
 
   const handleClose = () => onClose(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = () => {  
+    categoryName = categoryName.split(' ').filter(n => n).join(' ');
     addCategory(categoryName);
     onClose(false);
   }; 
@@ -22,7 +25,8 @@ export default ({addCategory, open, onClose}) =>  {
   /* Begin. Check Category Name */
   let [checkCategoryName, setCheckCategoryName] = React.useState('');
   let [checkCategoryNameFlag, setCheckCategoryNameFlag] = React.useState(false);
-  let checkFeedNameFunc = () => { 
+  let checkCategoryNameFunc = () => { 
+
     if ( categoryName.length < 5 || categoryName.length > 40 ) {
       checkCategoryName = `Здесь ${categoryName.length} cимволов. Можно от 5 до 40.`;
       checkCategoryNameFlag = true;
@@ -35,9 +39,10 @@ export default ({addCategory, open, onClose}) =>  {
       checkCategoryName = 'от 5 до 40 символов'
       checkCategoryNameFlag = false;
     }
+    
     return checkCategoryName; 
   }
-  checkFeedNameFunc();
+  checkCategoryNameFunc();
   /* End. Check Category Name */
 
   return (
@@ -51,10 +56,10 @@ export default ({addCategory, open, onClose}) =>  {
             error={checkCategoryNameFlag}
             margin="dense"
             id="name"
-            type="email"
+            type="text"
             fullWidth
             onChange={changeCategoryName}
-          />          
+          />
         </DialogContent>
 
         <DialogActions>

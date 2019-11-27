@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 const UpdateCategoryDialog = ({updateCategory, open, onClose, categories, feeds, currentCategory}) =>  {
 
-  const [categoryName, setCategoryName] = React.useState('Noname');
+  let [categoryName, setCategoryName] = React.useState('Noname');
 
   const handleClose = () => onClose(false);
 
@@ -30,12 +30,13 @@ const UpdateCategoryDialog = ({updateCategory, open, onClose, categories, feeds,
   // End For Array index calculate for update name category
   
   const handleSubmit = (e) => {
+    categoryName = categoryName.split(' ').filter(n => n).join(' ');  
     arrIndexCalc(currentCategory);   
     feeds.forEach( o => { 
       if ( o.category === currentCategory ) {
         o.category = categoryName;
       }
-    } );     
+    } );       
     updateCategory(categoryName, arrNumber);
     onClose(false);
   }; 

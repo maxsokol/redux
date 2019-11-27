@@ -106,7 +106,9 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat
 
 
 
-  const handleSubmit = () => {    
+  const handleSubmit = () => {  
+    feedName = feedName.split(' ').filter(n => n).join(' ');
+    feedDesc = feedDesc.split(' ').filter(n => n).join(' ');  
     updFeed(feedName, feedPrice, feedDesc, feedShelflife, arrFeedIndex, newCat);
     onClose(false);
   };
