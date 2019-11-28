@@ -147,12 +147,12 @@ export default function GmailTreeView() {
     >
       <StyledTreeItem nodeId="1" 
         labelText="Redux"
-        labelInfo="redux-store.js, categories-reducer.js"
+        labelInfo="store and reducers: categories, feeds, users"
         labelIcon={MemoryIcon} 
       /> 
       <StyledTreeItem nodeId="2" 
         labelText="App.js" 
-        labelInfo="props"
+        labelInfo="siteAdmin, isAdmin"
         labelIcon={HomeWorkIcon} 
       />
       <StyledTreeItem nodeId="3" 
@@ -249,7 +249,7 @@ export default function GmailTreeView() {
 <p>Backend: <br />
   По желанию. Можно использовать Fake Service, local storage 
 или Node Express.<br />
-<i className={classes.green}>(Пока не использовал)</i></p>
+<i className={classes.green}>(Пока успел только local storage для login)</i></p>
 
 <p>Минимум 3 формы: авторизация, список товаров, список категорий.
 Авторизацию можно сделать упрощённую (просто проставлять флаг является ли 
@@ -275,9 +275,6 @@ d.  Категория (выбирается из списка)<br />
 <p><b>Недочеты, которые здесь еще есть, но наврядли допущу на рабочем проекте: </b></p>
 <ol>
   <li>Стоит добавить запрет на использование одинковых имен товаров и каталогв.</li>
-  <li>Если во время заполнения форм нажать на фон, форма запомнит данные, но не покажет их при повторном открытии.</li>
-  <li>После добавления товара форма помнит содержание все полей, хотя не показывает их. Т.е.
-     при нажатии "Добавить" появится еще один такой же товар.</li>
 </ol>
 </div>
 
@@ -288,6 +285,9 @@ d.  Категория (выбирается из списка)<br />
     <br /><a href="https://www.youtube.com/watch?v=rEHvPiLWSbQ&list=PLVsgh6h4zk-L-OzWglEh-dBb3PrGcL96y&index=5">YouTube</a>
     <br /><a href="https://stackoverflow.com/questions/57220059/internal-implementation-of-makestyles-in-react-material-ui">stackoverflow.com</a></li>
   <li>Good <a href="https://material-ui-pickers.dev/getting-started/usage">Matherial UI data picker</a></li>
+  <li>Внедрял еще авторизацию через соцсети, но <a href="https://auth0.com/docs/quickstart/spa/react/01-login">реализация через Auth0</a> 
+  оказалась неудобной (застяаляют писать сложный пароль при варианте стандартной авторизации, 
+    и пользователь вынужде переходить на сайт с логотипом Auth0 для авторизации, это может отпугнуть)</li>
 </ol>
 
 </div>

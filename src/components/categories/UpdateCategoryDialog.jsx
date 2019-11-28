@@ -12,7 +12,10 @@ const UpdateCategoryDialog = ({updateCategory, open, onClose, categories, feeds,
 
   let [categoryName, setCategoryName] = React.useState('Noname');
 
-  const handleClose = () => onClose(false);
+  const handleClose = () => {
+    setCategoryName('Noname');
+    onClose(false);
+  }
 
   // Begin For Array index calculate for update name category
 

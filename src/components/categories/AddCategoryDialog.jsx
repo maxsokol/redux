@@ -8,13 +8,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default ({addCategory, open, onClose}) =>  {
 
-  let [categoryName, setCategoryName] = React.useState('');
+  let [categoryName, setCategoryName] = React.useState('Noname');
 
   const changeCategoryName = (e) => { 
     setCategoryName(e.target.value); 
   } 
 
-  const handleClose = () => onClose(false);
+  const handleClose = () => {
+    setCategoryName('Noname');
+    onClose(false);    
+  }
 
   const handleSubmit = () => {  
     categoryName = categoryName.split(' ').filter(n => n).join(' ');

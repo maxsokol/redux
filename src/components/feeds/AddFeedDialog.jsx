@@ -35,7 +35,10 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
   const changeFeedName = (e) => setFeedName(e.target.value);
   const changeFeedPrice = (e) => setFeedPrice(e.target.value);
   const changeFeedDesc = (e) => setFeedDesc(e.target.value);
-  const handleClose = () => onClose(false);
+  const handleClose = () => {
+    setFeedName('Noname');
+    onClose(false);
+  }
 
   const titleClasses = { root: classes.title };
   const inputClasses = { root: classes.input };
@@ -98,9 +101,11 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
   checkFeedNameFunc();
   /* End Check Feed Name */
 
+  console.log(feedName);
+
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">              
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >              
 
         <DialogContent>
 
@@ -108,7 +113,7 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
 
           <TextField
             error={checkFeedNameFlag}
-            helperText={checkFeedName}
+            helperText={ (feedName == "") ? ' ' : checkFeedName }
             autoFocus
             label="Название"
             margin="dense"
@@ -121,7 +126,6 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
            <TextField
             error={( feedPrice > 0 || feedPrice === 'none' ) ? false : true}
             helperText={( feedPrice > 0 || feedPrice === 'none' ) ? 'Больше нуля, естественно' : 'Цена должна быть больше нуля' }
-            autoFocus
             label="Цена, руб"
             margin="dense"
             id="price"
@@ -132,7 +136,6 @@ const AddFeedDialog = ({addFeed, open, onClose, categories, products, currentCat
           />
 
           <TextField
-            autoFocus
             label="Описание"
             margin="dense"
             id="description"
