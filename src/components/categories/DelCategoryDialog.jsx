@@ -75,21 +75,21 @@ const DelCategoryDialog = ({delCategory, delFeed, transFeedFromDelCategory, open
   return (
     <div>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Удалить категорию "{currentCategory}"?</DialogTitle> 
+        <DialogTitle id="form-dialog-title">Delete category "{currentCategory}"?</DialogTitle> 
 
         {(() => {
         if ( categories.length === 1 ) {
           return (
             <DialogContent>
-              <p>Извините, нельзя удалить последнюю категорию. Но Вы можете ее переименовать.</p>
+              <p>Sorry, you cannot delete the last category. But you can rename it.</p>
             </DialogContent>
           )
         } else if ( currentCategoryLength > 0 ) {
           return (
             <>
               <DialogContent>
-                <p>Эта категория содержит корм.</p> 
-                <p>Количество видов - {currentCategoryLength}: <br />
+                <p>This category contains food.</p> 
+                <p>Number of species - {currentCategoryLength}: <br />
                   <>
                     {currentCategoryItems.map(feedsArr => (
                         <span key={feedsArr.id}>
@@ -99,12 +99,12 @@ const DelCategoryDialog = ({delCategory, delFeed, transFeedFromDelCategory, open
                   </>
                 </p>
                 <FormControl>
-                  <InputLabel htmlFor="uncontrolled-native">Перенести в</InputLabel>
+                  <InputLabel htmlFor="uncontrolled-native">Transfer to</InputLabel>
                   <NativeSelect
                     defaultValue={'Notselect'}
                     onChange={changeCategoryName}            >
                     <option key={0} value={'Notselect'}>
-                      Просто удалить
+                      Just remove
                     </option>
                     {categories.filter(e => e.category !== currentCategory).map(option => (
                       <option key={option.id} value={option.category}>
@@ -112,16 +112,16 @@ const DelCategoryDialog = ({delCategory, delFeed, transFeedFromDelCategory, open
                       </option>                
                     ))}
                   </NativeSelect>
-                  <FormHelperText>Выберите категорию</FormHelperText>
+                  <FormHelperText>Select a category</FormHelperText>
                 </FormControl>
               </DialogContent>
 
               <DialogActions>
                 <Button onClick={handleClose} color="primary">
-                  Отмена
+                  Cancel
                 </Button>
                 <Button onClick={handleSubmit} color="primary">
-                  Удалить
+                  Delete
                 </Button>
               </DialogActions>
             </>
@@ -129,14 +129,14 @@ const DelCategoryDialog = ({delCategory, delFeed, transFeedFromDelCategory, open
         } else if ( currentCategoryLength === 0 ) {
           return (
             <DialogContent>
-              Категория пустая.
+              Category is empty.
 
               <DialogActions>
                 <Button onClick={handleClose} color="primary">
-                  Отмена
+                  Cancel
                 </Button>
                 <Button onClick={handleSubmit} color="primary">
-                  Удалить
+                  Delete
                 </Button>
               </DialogActions>
             </DialogContent>

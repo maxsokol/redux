@@ -132,11 +132,11 @@ export default function GmailTreeView() {
 
   return (
     <div className={classes.block}>
-      <Typography variant="h5">Описание задачи</Typography>             
+      <Typography variant="h5">Description of the task</Typography>             
       <p>
         <a href="https://github.com/maxsokol/redux" target="_blank" rel="noopener noreferrer">https://github.com/maxsokol/redux</a>
       </p>
-      <p><b>Схема проекта: </b></p>
+      <p><b>Project outline: </b></p>
 
     <TreeView
       className={classes.root}
@@ -233,61 +233,51 @@ export default function GmailTreeView() {
 
 
 <div className="card mx-auto">
-<p><b>Задание: </b><br />
-Написать приложение «каталог товаров», 
-в котором должно быть минимум 3 окна: авторизация, список товаров, 
-список категорий. </p>
+<p><b>This SPA was made for a test task: </b></p>
+<p>Write an application "product catalog"
+which must have at least 3 windows: authorization, list of goods,
+list of categories. </p>
 
 <p>Frontend:<br />
-Обязательно: Angular 4+/React/VueJS<br />
-<i className={classes.green}>(Использовал React + Redux)</i></p>
+Required: Angular 4+/React/VueJS<br />
+<i className={classes.green}>(I used React + Redux)</i></p>
 
 <p>Желательно: <br />
   bootstrap/google material, LESS or SASS<br />
-  <i className={classes.green}>(Использовал Material UI + makeStyles + Matherial Data Picker)</i></p>
+  <i className={classes.green}>(I used Material UI + makeStyles + Matherial Data Picker)</i></p>
 
 <p>Backend: <br />
-  По желанию. Можно использовать Fake Service, local storage 
-или Node Express.<br />
-<i className={classes.green}>(Пока успел только local storage для login)</i></p>
+Optional. You can use Fake Service, local storage
+or Node Express.<br />
+<i className={classes.green}>(So far, only local storage for login has had time)</i></p>
 
-<p>Минимум 3 формы: авторизация, список товаров, список категорий.
-Авторизацию можно сделать упрощённую (просто проставлять флаг является ли 
-пользователь авторизованным).</p>
+<p>At least 3 forms: authorization, list of products, list of categories.
+Authorization can be simplified (just check the flag is
+user authorized).</p>
 
-<p>Запретить доступ к списку товаров и категории для неавторизованных 
-пользователей. </p>
+<p>Deny access to the list of products and categories for unauthorized
+users. </p>
 
-<p>Список категорий: CRUD операции для категорий. При удалении категории можно 
-проставить любую категорию для уже созданных товаров.</p>
-<p>Список товаров:<br />
-1)  Свойства товара:<br />
-a.  Название (минимум 5 символов, максимум 40)<br />
-b.  Цена (больше 0)<br />
-c.  Срок годности (дата, больше чем сегодня).<br />
-d.  Категория (выбирается из списка)<br />
-2)  Возможности: CRUD операции.<br />
-3)  Валидация: client-side валидация по условиям.<br />
-4)  Редактирование/добавление сделать в отдельной компоненте (можно открывать 
-в модале или через router, другие варианты так же рассматриваются).</p>
+<p>List of categories: CRUD operations for categories. When deleting a category, you can
+put any category for already created products.</p>
+<p>List of goods:<br />
+1)  Product properties:<br />
+a.  Name (minimum 5 characters, maximum 40)<br />
+b.  Price (more than 0))<br />
+c.  Expiration date (date greater than today).<br />
+d.  Category (selected from the list)<br />
+2)  Features: CRUD operations.<br />
+3)  Validation: client-side validation based on conditions.<br />
+4)  Editing / adding should be done in a separate component (you can open
+in a modal or via router, other options are also considered).</p>
 
-<div style={{ display: 'none' }}>
-<p><b>Недочеты, которые здесь еще есть, но наврядли допущу на рабочем проекте: </b></p>
-<ol>
-  <li>Стоит добавить запрет на использование одинковых имен товаров и каталогв.</li>
-</ol>
-</div>
-
-<p><b>Полезная инфа: </b></p>
+<p><b>Useful info: </b></p>
 <ol>
   <li>Material-UI Styling with CSS in JS. More information about the advantages of this method:
     <br /><a href="https://material-ui.com/styles/api/">material-ui.com</a>. 
     <br /><a href="https://www.youtube.com/watch?v=rEHvPiLWSbQ&list=PLVsgh6h4zk-L-OzWglEh-dBb3PrGcL96y&index=5">YouTube</a>
     <br /><a href="https://stackoverflow.com/questions/57220059/internal-implementation-of-makestyles-in-react-material-ui">stackoverflow.com</a></li>
   <li>Good <a href="https://material-ui-pickers.dev/getting-started/usage">Matherial UI data picker</a></li>
-  <li>Внедрял еще авторизацию через соцсети, но <a href="https://auth0.com/docs/quickstart/spa/react/01-login">реализация через Auth0</a> 
-  оказалась неудобной (застяаляют писать сложный пароль при варианте стандартной авторизации, 
-    и пользователь вынужде переходить на сайт с логотипом Auth0 для авторизации, это может отпугнуть)</li>
 </ol>
 
 </div>

@@ -57,15 +57,15 @@ const UpdateCategoryDialog = ({updateCategory, open, onClose, categories, feeds,
     let [checkCategoryNameFlag, setCheckCategoryNameFlag] = React.useState(false);
     let checkFeedNameFunc = () => { 
       if ( categoryName.length < 5 || categoryName.length > 40 ) {
-        checkCategoryName = `Здесь ${categoryName.length} cимволов. Можно от 5 до 40.`;
+        checkCategoryName = `Here are ${categoryName.length} symbols, You can from 5 to 40`;
         checkCategoryNameFlag = true;
       }
       if ( categoryName.length >= 5 && categoryName.length <= 40 ) {
-        checkCategoryName = `Здесь ${categoryName.length} cимволов. Это норм.`
+        checkCategoryName = `Here are ${categoryName.length} symbols. it's ok.`
         checkCategoryNameFlag = false;
       }
       if ( categoryName === 'Noname' ) {
-        checkCategoryName = 'от 5 до 40 символов'
+        checkCategoryName = 'from 5 to 40 symbols'
         checkCategoryNameFlag = false;
       }
       return checkCategoryName; 
@@ -76,7 +76,7 @@ const UpdateCategoryDialog = ({updateCategory, open, onClose, categories, feeds,
   return (
     <div>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Переименовать категорию "{currentCategory}"</DialogTitle>
+        <DialogTitle id="form-dialog-title">Rename category "{currentCategory}"</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -92,16 +92,16 @@ const UpdateCategoryDialog = ({updateCategory, open, onClose, categories, feeds,
 
         <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Закрыть
+              Cancel 
             </Button>
 
             { (checkCategoryNameFlag || categoryName === 'Noname' ) ? (
               <Button color="primary" disabled>
-                Введите название
+                Enter the title
               </Button> 
               ) : (
               <Button onClick={handleSubmit} color="primary">
-                Переименовать
+                Rename
             </Button> )
             }
         </DialogActions>

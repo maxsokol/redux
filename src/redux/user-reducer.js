@@ -4,12 +4,12 @@ let initialState = {
     users:  [
         {
             id: "1",
-            login: "admin",
-            password: "admin",
+            login: "client",
+            password: "client",
             isAdmin: true,
         },     
     ],
-    siteAdmin: false
+    siteAdmin: true
 };
 
 const feedsReducer = (state = initialState, action) => {

@@ -60,25 +60,25 @@ const Feed = ({ feed: { title, id, price, text, shelflife, category }, allCatego
         <Typography gutterBottom variant="h5" component="h2" classes={titleClasses}>
           {title}
         </Typography>      
-          <Typography color="textSecondary" variant="body2">Цена: 
-            <span className={classes.price}>{price} руб.</span>
+          <Typography color="textSecondary" variant="body2">Price: 
+            <span className={classes.price}>{price} cents</span>
           </Typography>
           <Typography variant="body2" component="p" classes={textClasses}> 
             {text}
           </Typography>
           <Typography color="textSecondary" variant="body2" classes={shelflifeClasses}>
-            Срок годности: {shelflife}
+            Shelf life: {shelflife}
           </Typography>
       </CardContent>
     <CardActions>
       <Button size="small" color="primary"  onClick={openUpdateFeedClick} classes={buttonClasses}>
-        Редактировать
+        Edit
       </Button>
       <UpdateFeedDialog categories={allCategories} currentFeed={title}
         currentCat={category} open={openUpdateFeed} onClose={closeUpdateFeedClick} products={products} />
 
       <Button size="small" color="primary" onClick={openDelFeedClick} classes={buttonClasses}>
-        Удалить
+        Delete
       </Button>
       <DelFeedDialog categories={allCategories} currentFeed={title}
         open={openDeleteFeed} onClose={closeDelFeedClick}/>

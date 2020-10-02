@@ -47,7 +47,7 @@ const FeedList = ({allCategories, feeds}) => {
     <Card key={0} classes={containerClasses}>   
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-          Добавить корм
+          Add feed
           </Typography>
           <IconButton aria-label="add" classes={addbuttonClasses} onClick={handleClickOpen}>
             <AddCircleOutlineIcon className={classes.addicon} />
@@ -96,7 +96,7 @@ const FeedList = ({allCategories, feeds}) => {
       
         <Route exact path = "/"> 
           <Grid> 
-            <Typography variant="h5" className={classes.title}>Весь корм</Typography>  
+            <Typography variant="h5" className={classes.title}>All feed</Typography>  
           </Grid>           
         </Route>
 
@@ -106,7 +106,7 @@ const FeedList = ({allCategories, feeds}) => {
         {FeedListItems} 
         {AddFeedListItemRoute}
         <Route exact path = "/"> 
-          {AddFeedListItem('Для котов')}           
+          {AddFeedListItem('For cats')}           
         </Route>
         <Route path = '/info' > 
             <Info />    

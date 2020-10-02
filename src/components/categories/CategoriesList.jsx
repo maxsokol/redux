@@ -43,19 +43,19 @@ const CategoriesList = ({allCategories, addCategory}) => {
     
   return (
     <Grid item xs={12} md={3} className={classes.container} >
-      <Typography variant="h5" classes={menutitleClasses}>Категории</Typography>
+      <Typography variant="h5" classes={menutitleClasses}>Categories</Typography>
 
       <MenuList>  
         <a href={`/#/`} className={classes.ahref}>      
           <MenuItem classes={menuitemClasses}>          
-            Весь корм 
+            All feed
           </MenuItem>    
         </a>        
         {CategoriesItem}
       </MenuList>
 
       <Button onClick={handleClickOpen}  classes={addcategoryClasses}>
-        Добавить категорию
+        Add category
       </Button>
       <AddCategoryDialog addCategory={addCategory} open={open} onClose={handleClickClose}/>
           

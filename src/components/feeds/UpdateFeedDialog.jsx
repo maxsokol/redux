@@ -88,15 +88,15 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat
   let [checkFeedNameFlag, setCheckFeedNameFlag] = React.useState(false);
   let checkFeedNameFunc = () => { 
     if ( feedName.length < 5 || feedName.length > 40 ) {
-      checkFeedName = `Здесь ${feedName.length} cимволов. Можно от 5 до 40.`;
+      checkFeedName = `Here are ${feedName.length} symbols. You can from 5 to 40.`;
       checkFeedNameFlag = true;
     }
     if ( feedName.length >= 5 && feedName.length <= 40 ) {
-      checkFeedName = `Здесь ${feedName.length} cимволов. Это норм.`
+      checkFeedName = `Here are ${feedName.length} symbols. This is ok`
       checkFeedNameFlag = false;
     }
     if ( feedName === 'Noname' ) {
-      checkFeedName = 'от 5 до 40 символов'
+      checkFeedName = 'from 5 to 40 characters'
     }
     return checkFeedName; 
   }
@@ -119,13 +119,13 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">          
 
         <DialogContent>
-          <DialogTitle id="form-dialog-title" classes={titleClasses}>Изменить корм</DialogTitle>  
+          <DialogTitle id="form-dialog-title" classes={titleClasses}>Edit feed</DialogTitle>  
 
           <TextField
             error={checkFeedNameFlag}
             helperText={checkFeedName}
             autoFocus
-            label="Название"
+            label="Name"
             margin="dense"
             id="name"
             fullWidth
@@ -136,9 +136,9 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat
 
           <TextField
             error={( feedPrice > 0 || feedPrice === 'none' ) ? false : true}
-            helperText={( feedPrice > 0 || feedPrice === 'none' ) ? 'Больше нуля, естественно' : 'Цена должна быть больше нуля' }
+            helperText={( feedPrice > 0 || feedPrice === 'none' ) ? 'Above zero' : 'The price must be greater than zero' }
             autoFocus
-            label="Цена, руб"
+            label="Price, cents"
             margin="dense"
             id="price"
             fullWidth
@@ -150,7 +150,7 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat
 
           <TextField
             autoFocus
-            label="Описание"
+            label="Description"
             margin="dense"
             id="description"
             fullWidth
@@ -162,7 +162,7 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker 
               classes={inputClasses}
-              label="Срок годности"
+              label="Shelf life"
               value={feedShelflife} 
               format="MM/dd/yyyy"
               onChange={handleFeedShelflifeChange}
@@ -170,7 +170,7 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat
           </MuiPickersUtilsProvider>
 
           <FormControl classes={inputClasses}>
-            <InputLabel htmlFor="uncontrolled-native">Категория корма</InputLabel>
+            <InputLabel htmlFor="uncontrolled-native">Feed category</InputLabel>
             <NativeSelect
               defaultValue={currentCat}
               onChange={changeCategoryName}
@@ -181,21 +181,21 @@ const UpdateFeedDialog = ({updFeed, open, onClose, categories, feeds, currentCat
               </option>
             ))}
             </NativeSelect>
-            <FormHelperText>Выберите пожалуйста</FormHelperText>
+            <FormHelperText>Please select</FormHelperText>
           </FormControl>
         
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Закрыть
+              Cancel
             </Button>
 
             { (checkFeedNameFlag || feedPrice < 0 ) ? (
               <Button color="primary">
-                Заполните поля
+                Fill in the fields
               </Button> 
               ) : (
               <Button onClick={handleSubmit} color="primary">
-              Редактировать
+               Edit
             </Button> )
             }
 

@@ -35,14 +35,14 @@ const DelFeedDialog = ({delFeed, open, onClose, feeds, currentFeed}) =>  {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Удалить корм "{currentFeed}"?</DialogTitle>        
+        <DialogTitle id="form-dialog-title">Remove feed "{currentFeed}"?</DialogTitle>        
         
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Отмена
+            Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Удалить
+            Delete
           </Button>
         </DialogActions>
       </Dialog>

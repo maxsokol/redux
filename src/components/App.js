@@ -71,7 +71,7 @@ const App = ({siteAdmin, isAdmin}) => {
   let localStorageSiteAdminName = localStorage.getItem('siteAdminName');
 
   if ( localStorageSiteAdmin == 'true' || localStorageSiteAdmin == true ) { 
-    isAdmin('admin', 'admin');
+    isAdmin('client', 'client');
   };
 
   return (
@@ -88,7 +88,7 @@ const App = ({siteAdmin, isAdmin}) => {
             Feed the cat
           </Typography>
 
-          <Typography variant="h4" className={classes.sitesubtitle}>Накормите кота</Typography>
+          <Typography variant="h4" className={classes.sitesubtitle}>Online store</Typography>
           
           <DialogContent  className={classes.loginForm}>
 
@@ -96,7 +96,7 @@ const App = ({siteAdmin, isAdmin}) => {
               <>
                 <TextField
                   className={classes.auth}
-                  label="Логин"
+                  label="Login"
                   margin="dense"
                   id="name"
                   type="search"
@@ -106,7 +106,7 @@ const App = ({siteAdmin, isAdmin}) => {
 
                 <TextField
                   className={classes.auth}
-                  label="Пароль"
+                  label="Password"
                   margin="dense"
                   id="name"
                   type="password"
@@ -118,18 +118,18 @@ const App = ({siteAdmin, isAdmin}) => {
                   <Button onClick={handleSubmit} 
                     className={classes.submit} 
                     color="primary">
-                      Войти
+                      Log in
                   </Button>               
                 </DialogActions>
               </>
             ) : (
               <>
-                <Typography>Рады видеть Вас, {localStorageSiteAdminName}</Typography>
+                <Typography>We're glad to see you, {localStorageSiteAdminName}</Typography>
                 <DialogActions>
                   <Button onClick={handleLogout} 
                     className={classes.submit} 
                     color="primary">
-                      Выйти
+                      Log out
                   </Button>               
                 </DialogActions>
               </>
@@ -149,12 +149,12 @@ const App = ({siteAdmin, isAdmin}) => {
         </Grid>
        ) : (
         <Grid xs={12} md={12} container direction="row">
-          <p>Извините, Вы не можете видеть каталог корма, 
-          пока не введете логин <b>admin</b>, пароль <b>admin</b>.</p>
+          <p>Sorry, you cannot see the feed catalog
+          until you enter your login <b>client</b> and pass <b>client</b>.</p>
         </Grid>)      
       }
 
-         <p  className={classes.inform}>Выполнил Максим Соколов. <a href="/#info">Описание</a>. </p>
+         <p  className={classes.inform}>Designed by Max Sokolov. <a href="/#info">Description</a>. </p>
 
     </>
   ) 

@@ -31,15 +31,15 @@ export default ({addCategory, open, onClose}) =>  {
   let checkCategoryNameFunc = () => { 
 
     if ( categoryName.length < 5 || categoryName.length > 40 ) {
-      checkCategoryName = `Здесь ${categoryName.length} cимволов. Можно от 5 до 40.`;
+      checkCategoryName = `Here are ${categoryName.length} characters. You can use from 5 to 40 characters.`;
       checkCategoryNameFlag = true;
     }
     if ( categoryName.length >= 5 && categoryName.length <= 40 ) {
-      checkCategoryName = `Здесь ${categoryName.length} cимволов. Это норм.`
+      checkCategoryName = `Here are ${categoryName.length} characters. This is normal.`
       checkCategoryNameFlag = false;
     }
     if ( categoryName === 'Noname' ) {
-      checkCategoryName = 'от 5 до 40 символов'
+      checkCategoryName = 'from 5 to 40 characters'
       checkCategoryNameFlag = false;
     }
     
@@ -51,7 +51,7 @@ export default ({addCategory, open, onClose}) =>  {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Введите название категории</DialogTitle>
+        <DialogTitle id="form-dialog-title">Enter category name</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -67,16 +67,16 @@ export default ({addCategory, open, onClose}) =>  {
 
         <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Закрыть
+              Cancel
             </Button>
 
             { (checkCategoryNameFlag || categoryName === 'Noname' ) ? (
               <Button color="primary" disabled>
-                Введите название
+                Enter the title
               </Button> 
               ) : (
               <Button onClick={handleSubmit} color="primary">
-                Добавить
+                Add
             </Button> )
             }
         </DialogActions>

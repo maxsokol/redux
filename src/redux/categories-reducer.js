@@ -7,15 +7,15 @@ let initialState = {
     allCategories: [
         {
             id: "1",
-            category: "Для котов", 
+            category: "For cats", 
         },
         {
             id: "2",
-            category: "Наврядли для котов",
+            category: "Maybe for cats",
         },
         {
             id: "3",
-            category: "Секретная категория",
+            category: "Secret category",
         }, 
     ],
     isWorthy: true,
